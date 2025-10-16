@@ -17,7 +17,7 @@
 
     <section class="hero">
       <video autoplay muted loop playsinline class="video-bg">
-        <source src="../assets/engineers.mp4" type="video/mp4" />
+        <source src="../assets/10.mp4" type="video/mp4" />
       </video>
       <div class="overlay"></div>
       <div class="hero-content">
@@ -64,7 +64,7 @@
           </p>
         </div>
         <div class="card">
-          <img src="../assets/8.jpeg" alt="AI code" />
+          <img src="../assets/8.jpeg" alt="AI" />
           <h3>AI & Data Solutions</h3>
           <p>Harness machine intelligence and analytics to unlock insight and automation.</p>
         </div>
@@ -186,6 +186,7 @@
 
 <style>
 :root {
+  --header-height: 72px;
   --bg: #060a1f;
   --accent1: #00ffe1;
   --accent2: #007bff;
@@ -214,6 +215,7 @@ body {
   padding: 1rem 2rem;
   z-index: 10;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  height: var(--header-height);
 }
 
 .logo {
@@ -253,13 +255,19 @@ body {
 }
 
 .hero {
-  height: 100vh;
+  /* start below the fixed header */
+  margin-top: var(--header-height);
+  height: calc(100vh - var(--header-height));
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: #fff;
+  /* cover image fallback / hero cover */
+  background-image: url('../assets/1.jpeg');
+  background-size: cover;
+  background-position: center center;
 }
 .video-bg {
   position: absolute;
@@ -285,6 +293,9 @@ body {
 }
 .hero h1 span {
   color: var(--accent1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .hero p {
   font-size: 1.1rem;
@@ -325,6 +336,9 @@ body {
 .text h2 {
   color: var(--accent1);
   font-size: 2rem;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .text p {
   color: #cfd3f7;
@@ -646,8 +660,9 @@ body {
 }
 
 /* Glowing lines animation */
-.footer::before, .footer::after {
-  content: "";
+.footer::before,
+.footer::after {
+  content: '';
   position: absolute;
   width: 200%;
   height: 2px;
@@ -659,8 +674,12 @@ body {
 }
 
 @keyframes moveGlow {
-  from { transform: translateX(0); }
-  to { transform: translateX(50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
 }
 
 /* Footer Grid Layout */
