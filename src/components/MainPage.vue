@@ -1,4 +1,16 @@
-<script setup></script>
+<script setup>
+import { onMounted } from 'vue'
+
+function goToSoftwares(event) {
+  event.preventDefault()
+  const el = document.getElementById('softwares')
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // update hash without jumping
+    history.replaceState(null, '', '#softwares')
+  }
+}
+</script>
 
 <template>
   <div class="main-container">
@@ -25,7 +37,7 @@
         <p>
           Quantum Ripple builds future-proof software powered by AI, data, and human creativity.
         </p>
-        <button>Discover More</button>
+        <button @click="goToSoftwares">Discover More</button>
       </div>
     </section>
 
@@ -290,6 +302,7 @@ body {
 .hero h1 {
   font-size: 3.2rem;
   letter-spacing: 1px;
+  background-clip: text;
 }
 .hero h1 span {
   color: var(--accent1);
@@ -352,6 +365,7 @@ body {
 }
 .softwares h2 {
   color: var(--accent2);
+  background-clip: text;
 }
 .cards {
   margin-top: 3rem;
@@ -528,6 +542,7 @@ body {
 .member .role {
   color: var(--accent2);
   font-weight: 600;
+  background-clip: text;
   margin-bottom: 0.6rem;
 }
 .member .bio {
@@ -694,6 +709,7 @@ body {
 .footer-brand h2 {
   font-size: 1.5rem;
   background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
