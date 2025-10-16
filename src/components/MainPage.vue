@@ -1,5 +1,10 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+
+const menuOpen = ref(false)
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+}
 
 function goToSoftwares(event) {
   event.preventDefault()
@@ -8,6 +13,8 @@ function goToSoftwares(event) {
     el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     // update hash without jumping
     history.replaceState(null, '', '#softwares')
+    // close menu on mobile if open
+    menuOpen.value = false
   }
 }
 </script>
@@ -25,6 +32,30 @@ function goToSoftwares(event) {
         <a href="#works">Works</a>
         <a href="#softwares">Softwares</a>
       </nav>
+
+      <!-- mobile hamburger -->
+      <div class="hamburger-wrap">
+        <button
+          id="navToggle"
+          class="hamburger"
+          :class="{ open: menuOpen }"
+          :aria-expanded="menuOpen.toString()"
+          aria-controls="mobileNav"
+          aria-label="Toggle navigation"
+          @click="toggleMenu"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+
+      <div id="mobileNav" class="mobile-nav" v-if="menuOpen">
+        <a href="#" @click="toggleMenu">Home</a>
+        <a href="#about" @click="toggleMenu">About</a>
+        <a href="#works" @click="toggleMenu">Works</a>
+        <a href="#softwares" @click="goToSoftwares">Softwares</a>
+      </div>
     </header>
 
     <section class="hero">
@@ -266,6 +297,108 @@ body {
   color: var(--accent1);
 }
 
+/* Hamburger & mobile nav */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 38px;
+  padding: 7px;
+  margin: 0;
+}
+.hamburger-wrap {
+  position: absolute;
+  right: 4.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: none;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+}
+.hamburger-wrap:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+.hamburger .bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-color: var(--accent1);
+  margin: 5px auto;
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.mobile-nav {
+  position: absolute;
+  top: var(--header-height);
+  right: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(6, 10, 31, 0.98), rgba(6, 10, 31, 0.96));
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 2rem 2rem;
+  z-index: 9;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.mobile-nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.8rem 0;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Responsive breakpoint: show hamburger on tablets and phones (<=1024px) */
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+  .hamburger-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header {
+    grid-template-columns: 1fr auto;
+    padding: 0.5rem 2rem;
+    position: relative;
+  }
+  .logo {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .logo h1 {
+    font-size: 1.1rem;
+  }
+}
+
 .hero {
   /* start below the fixed header */
   margin-top: var(--header-height);
@@ -448,17 +581,11 @@ body {
 .project:hover img {
   transform: scale(1.05);
 }
-.overlay-text {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  opacity: 0;
-  transition: 0.4s;
+.hamburger:focus {
+  outline: 2px solid rgba(0, 255, 224, 0.12);
+  border-radius: 6px;
 }
+
 .project:hover .overlay-text {
   opacity: 1;
 }
