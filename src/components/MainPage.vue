@@ -130,9 +130,9 @@ function goToSoftwares(event) {
         </article>
 
         <article class="work-card">
-          <h3>CELVE Website</h3>
-          <p>Marketing site and documentation portal for the CELVE platform.</p>
-          <a class="work-link" href="https://celve.netlify.app" target="_blank">Visit Site</a>
+          <h3>AgriPulse System</h3>
+          <p>A farmer Application system that allows seemless Access of Information and Knowledge</p>
+          <a class="work-link" href="https://agriepulse.netlify.app" target="_blank">Visit Site</a>
         </article>
       </div>
     </section>
@@ -146,7 +146,7 @@ function goToSoftwares(event) {
 
       <div class="team-grid">
         <div class="member">
-          <div class="count">3</div>
+          <div class="count">2</div>
           <h3>Frontend Engineers</h3>
           <p>
             Craft immersive interfaces and micro-interactions that make our systems feel alive and
@@ -155,13 +155,13 @@ function goToSoftwares(event) {
         </div>
 
         <div class="member">
-          <div class="count">3</div>
+          <div class="count">2</div>
           <h3>Backend Engineers</h3>
           <p>Architect and maintain the unseen logic — secure APIs and scalable systems.</p>
         </div>
 
         <div class="member">
-          <div class="count">2</div>
+          <div class="count">1</div>
           <h3>Full Stack Engineers</h3>
           <p>Connect front and back ends for seamless, end-to-end experiences.</p>
         </div>
